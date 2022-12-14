@@ -30,7 +30,8 @@ systemctl enable bluetooth
 systemctl enable cups.service
 systemctl enable sshd
 systemctl enable avahi-daemon
-#systemctl enable tlp # You can comment this command out if you didn't install tlp, see above
+# You can comment this command out if you didn't install tlp, see above
+#systemctl enable tlp
 systemctl enable reflector.timer
 systemctl enable fstrim.timer
 systemctl enable libvirtd
@@ -38,10 +39,13 @@ systemctl enable firewalld
 systemctl enable acpid
 
 useradd -m oyinbra
-echo oyinbra:password | chpasswd # Change password to your password
-usermod -aG libvirt oyinbra
+# Change password to your password
+echo oyinbra:password | chpasswd
+usermod -aG wheel oyinbra
 
 echo "oyinbra ALL=(ALL) ALL" >> /etc/sudoers.d/oyinbra
 
 
 printf "\e[1;32mDone! Type exit, umount -a and reboot.\e[0m"
+
+# When done just move to and mkinitcpio configuration
