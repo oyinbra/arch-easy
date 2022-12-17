@@ -7,7 +7,7 @@ rate-mirrors --allow-root --protocol https arch | sudo tee /etc/pacman.d/mirrorl
 lsblk
 
 mkfs.btrfs -f -L archlinux /dev/nvme0n1p2
-mkfs.fat -F32 /dev/nvme0n1p1
+mkfs.vfat /dev/nvme0n1p1
 # mkswap /dev/nvme0n1p2
 
 mount /dev/nvme0n1p2 /mnt
@@ -22,7 +22,7 @@ btrfs subvolume create /mnt/@swap
 
 umount /mnt
 
-mount -o noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@ /dev/nvme0n1p2 /mnt
+mount -o noatime,space_cache=v2,ssd,discard=async,subvol=@ /dev/nvme0n1p2 /mnt
 
 mkdir -p /mnt/{boot/efi,home,var/cache/pacman/pkg,var/log,var/tmp,srv,opt,swap}
 
@@ -37,6 +37,6 @@ mount -o noatime,space_cache=v2,ssd,subvol=@swap /dev/nvme0n1p2 /mnt/swap
 mount /dev/nvme0n1p1 /mnt/boot/efi
 
 cd
-mv arch-easy
+mv arch-easy /mnt
 # swapon /dev/nvme0n1p2
 
