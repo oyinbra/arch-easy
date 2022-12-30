@@ -1,0 +1,1 @@
+pacstrap /mnt base base-devel linux linux-firmware intel-ucode btrfs-progs archlinux-keyring bat nano git vim zsh neofetch
