@@ -1,11 +1,23 @@
-# Arch Basic Install Commands-Script
-
-In this repository you will find packages-scripts for the base install of Arch Linux and the Gnome, KDE, Cinnamon and Xfce desktop environments. More to come for Windows Managers soon.
-Modify the packages to your liking, make the script executable with chmod +x scriptname and then run with ./scriptname.
-A script for the base install on MBR/Legacy will be available soon.
-Remember that the first part of the Arch Linux install is manual, that is you will have to partition, format and mount the disk yourself. Install the base packages and make sure to inlcude git so that you can clone the repository in chroot.
+# Arch Installation made easy
 
 A small summary:
+
+1. Partition the disk into 3 part with
+partition 1 = boot
+partition 2 = swap
+partition 3 = root
+
+2. Run the nvme0n1-format-mount.sh for nvme0n1 or sda-format-mount.sh sda disk to format, create, mount subvolumes and turn on swap partition
+
+Run the pacstrap.sh to start installation for intel-cpu by default which can be changed to amd from the script
+
+Generate fstab and export it to your drive. the U tag is for the command to use the UUID of the partitions
+
+<code>genfstab -U /mnt >> /mnt/etc/fstab</code>
+
+
+
+
 
 1. If needed, load your keymap
 2. Refresh the servers with pacman -Syy

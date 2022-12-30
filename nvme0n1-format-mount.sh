@@ -1,6 +1,6 @@
 timedatectl set-ntp true
 loadkeys us
-pacman -Sy reflector
+pacman -Sy reflector archlinux-keyring
 reflector --country US --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Sy
 
