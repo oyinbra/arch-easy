@@ -26,8 +26,9 @@ echo "127.0.1.1 ArchLinux.localdomain ArchLinux" >> /etc/hosts
 # Change password to your password
 echo root:password | chpasswd
 
+# Comment if installing packages from the base-packages.txt file
 
-pacman -S grub grub-btrfs base-devel efibootmgr networkmanager network-manager-applet dialog wpa_supplicant linux-headers pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call firewalld flatpak sof-firmware acpid os-prober terminus-font mtools dosfstools dhcp avahi upower man-db man-pages zsh
+# pacman -S grub grub-btrfs base-devel efibootmgr networkmanager network-manager-applet dialog wpa_supplicant linux-headers pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call firewalld flatpak sof-firmware acpid os-prober terminus-font mtools dosfstools dhcp avahi upower man-db man-pages zsh
 
 # pacman -S --noconfirm xf86-video-amdgpu
 # pacman -S --noconfirm nvidia nvidia-utils nvidia-settings
@@ -48,7 +49,7 @@ systemctl enable firewalld
 useradd -m -G sys,log,network,floppy,scanner,power,rfkill,users,video,storage,optical,lp,audio,wheel,adm,uucp -s /bin/zsh oyinbra
 # Change password to your password
 echo oyinbra:password | chpasswd
-# usermod -aG wheel oyinbra
+usermod -aG wheel oyinbra
 
 echo "oyinbra ALL=(ALL) ALL" >> /etc/sudoers.d/oyinbra
 
