@@ -1,5 +1,7 @@
 timedatectl set-ntp true
 loadkeys us
+pacman -Sy reflector
+reflector --country US --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Sy
 
 lsblk
@@ -33,8 +35,4 @@ swapon /dev/nvme0n1p2
 
 cd
 cp -r arch-easy /mnt
-
-pacman -S reflector
-reflector --country US --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
-pacman -Sy
 

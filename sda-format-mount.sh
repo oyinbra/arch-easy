@@ -1,5 +1,7 @@
 timedatectl set-ntp true
 loadkeys us
+pacman -Sy reflector
+reflector --country US --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Sy
 
 lsblk
