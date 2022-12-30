@@ -5,8 +5,8 @@ pacman -Sy
 lsblk
 
 mkfs.btrfs -f -L ArchLinux /dev/nvme0n1p3
-mkfs.vfat -n Boot /dev/nvme0n1p1
-mkswap /dev/nvme0n1p2
+mkfs.vfat -n BOOT /dev/nvme0n1p1
+mkswap -L swap /dev/nvme0n1p2
 
 mount /dev/nvme0n1p3 /mnt
 
@@ -28,6 +28,8 @@ mount -o noatime,compress=zstd:1,ssd,discard=async,space_cache=v2,subvol=@log /d
 mount -o noatime,compress=zstd:1,ssd,discard=async,space_cache=v2,subvol=@.snapshots /dev/nvme0n1p3 /mnt/.snapshots
 
 mount /dev/nvme0n1p1 /mnt/boot/efi
+
+swapon /dev/nvme0n1p2
 
 cd
 cp -r arch-easy /mnt
