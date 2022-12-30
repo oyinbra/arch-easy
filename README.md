@@ -12,9 +12,9 @@ partition 3 = root
 3. Run the <code>./pacstrap.sh</code> to start installation for intel-cpu by default which can be changed to amd from within the script
 
 4. Generate fstab and export it to your drive. the U tag is for the command to use the UUID of the partitions
-
-<code>genfstab -U /mnt >> /mnt/etc/fstab</code>
-
+```
+genfstab -U /mnt >> /mnt/etc/fstab
+```
 5. Enter into the Root of your newly installed system with chroot command
 
 <code>arch-chroot /mnt</code>
