@@ -17,7 +17,8 @@ genfstab -U /mnt >> /mnt/etc/fstab
 ```
 5. Enter into the Root of your newly installed system with chroot command
 
-```arch-chroot /mnt```
+```arch-chroot /mnt
+```
 
 6. Configure Pacman settings, uncomment
 color
