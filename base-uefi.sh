@@ -39,7 +39,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 systemctl enable NetworkManager
 systemctl enable upower.service
-systemctl enable bluetooth
+# systemctl enable bluetooth
 systemctl enable sshd
 systemctl enable avahi-daemon
 systemctl enable fstrim.timer
