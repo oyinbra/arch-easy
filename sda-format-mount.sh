@@ -36,7 +36,3 @@ swapon /dev/sda2
 cd
 cp -r arch-easy /mnt
 
-pacman -S reflector
-reflector --country US --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
-pacman -Sy
-
