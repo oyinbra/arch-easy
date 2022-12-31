@@ -1,19 +1,27 @@
 #!/bin/bash
 
+# Search for any line with "oyinbra" and replace that with your own username
+
 ln -sf /usr/share/zoneinfo/Africa/Lagos /etc/localtime
 hwclock --systohc
-sed -i '178s/.//' /etc/locale.gen
+
+# Locale gen for en_US.UTF-8 UTF-8
+sed -i '171s/.//' /etc/locale.gen
+# Locale gen for en_NG UTF-8
+sed -i '163s/.//' /etc/locale.gen
 locale-gen
-echo "LANG=en_US.UTF-8" >> /etc/locale.conf
-echo "LC_ADDRESS=en_US.UTF-8" >> /etc/locale.conf
-echo "LC_IDENTIFICATION=en_US.UTF-8" >> /etc/locale.conf
-echo "LC_MEASUREMENT=en_US.UTF-8" >> /etc/locale.conf
-echo "LC_MONETARY=en_US.UTF-8" >> /etc/locale.conf
-echo "LC_NAME=en_US.UTF-8" >> /etc/locale.conf
-echo "LC_NUMERIC=en_US.UTF-8" >> /etc/locale.conf
-echo "LC_PAPER=en_US.UTF-8" >> /etc/locale.conf
-echo "LC_TELEPHONE=en_US.UTF-8" >> /etc/locale.conf
-echo "LC_TIME=en_US.UTF-8" >> /etc/locale.conf
+
+echo "
+LANG=en_NG
+LC_ADDRESS=en_NG
+LC_IDENTIFICATION=en_NG
+LC_MEASUREMENT=en_NG
+LC_MONETARY=en_NG
+LC_NAME=en_NG
+LC_NUMERIC=en_NG
+LC_PAPER=en_NG
+LC_TELEPHONE=en_NG
+LC_TIME=en_NG"
 
 echo "KEYMAP=us-acentos" >> /etc/vconsole.conf
 
