@@ -9,14 +9,17 @@ reflector --country US --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
 # sudo firewall-cmd --add-port=1025-65535/udp --permanent
 # sudo firewall-cmd --reload
 
-# Paru Installation
+# paru installation
+cd
+mkdir -p Repos
+~/Repos
+sudo pacman -S --needed base-devel
 git clone https://aur.archlinux.org/paru.git
-cd paru/
-makepkg -si --noconfirm
+cd paru
+makepkg -si
 
-sudo pacman -S --noconfirm xorg sddm plasma 
-
-sudo flatpak install -y spotify
+sudo pacman -Syyu
+paru -S xorg plasma-desktop plasma-wayland-session sddm ark dolphin konsole 
 
 sudo systemctl enable sddm
 /bin/echo -e "\e[1;32mREBOOTING IN 5..4..3..2..1..\e[0m"

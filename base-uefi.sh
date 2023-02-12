@@ -31,6 +31,8 @@ echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
 echo "127.0.1.1 ArchLinux.localdomain ArchLinux" >> /etc/hosts
 
+mkinitcpio -P
+
 # Change password to your password
 echo root:password | chpasswd
 
@@ -54,12 +56,16 @@ systemctl enable fstrim.timer
 systemctl enable firewalld
 # acpid#systemctl enable
 
+# replace username with your own network
 useradd -m -G sys,log,network,floppy,scanner,power,rfkill,users,video,storage,optical,lp,audio,wheel,adm,uucp -s /bin/zsh oyinbra
+
 # Change password to your password
 echo oyinbra:password | chpasswd
+
+# Change password to your password
 usermod -aG wheel oyinbra
 
+# replace username with your own network
 echo "oyinbra ALL=(ALL) ALL" >> /etc/sudoers.d/oyinbra
-
 
 printf "\e[1;32mDone! grub configuration, Type exit, umount -a and reboot.\e[0m"
