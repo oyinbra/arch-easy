@@ -4,7 +4,8 @@ btrfs-progs
 archlinux-keyring
 nano
 git
-nvim
+neovim
+latte-dock
 zsh
 neofetch
 grub-btrfs

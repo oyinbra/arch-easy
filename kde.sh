@@ -19,7 +19,7 @@ cd paru
 makepkg -si
 
 sudo pacman -Syyu
-paru -S xorg plasma-desktop plasma-wayland-session sddm ark dolphin konsole 
+paru -S xorg plasma plasma-desktop plasma-wayland-session sddm ark kate dolphin konsole 
 
 sudo systemctl enable sddm
 /bin/echo -e "\e[1;32mREBOOTING IN 5..4..3..2..1..\e[0m"
