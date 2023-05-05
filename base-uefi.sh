@@ -27,9 +27,9 @@ echo "KEYMAP=us-acentos" >> /etc/vconsole.conf
 
 echo "ArchLinux" >> /etc/hostname
 
-echo "127.0.0.1 localhost" >> /etc/hosts
-echo "::1       localhost" >> /etc/hosts
-echo "127.0.1.1 ArchLinux.localdomain ArchLinux" >> /etc/hosts
+echo "127.0.0.1     localhost" >> /etc/hosts
+echo "::1           localhost" >> /etc/hosts
+echo "127.0.1.1     ArchLinux.localdomain     localhost" >> /etc/hosts
 
 mkinitcpio -P
 
@@ -38,7 +38,7 @@ echo root:password | chpasswd
 
 # Comment if installing packages from the base-packages.txt file
 
-# pacman -S grub grub-btrfs base-devel efibootmgr networkmanager network-manager-applet dialog wpa_supplicant linux-headers pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call firewalld flatpak sof-firmware acpid os-prober terminus-font mtools dosfstools dhcp avahi upower man-db man-pages zsh
+pacman -S grub grub-btrfs base-devel efibootmgr networkmanager network-manager-applet dialog wpa_supplicant linux-headers pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call firewalld flatpak sof-firmware acpid os-prober terminus-font mtools dosfstools dhcp avahi upower man-db man-pages zsh
 
 # pacman -S --noconfirm xf86-video-amdgpu
 # pacman -S --noconfirm nvidia nvidia-utils nvidia-settings
@@ -54,6 +54,7 @@ systemctl enable sshd
 systemctl enable avahi-daemon
 systemctl enable fstrim.timer
 systemctl enable firewalld
+systemctl enable dhcpcd.service 
 # acpid#systemctl enable
 
 # replace username with your own network
@@ -63,9 +64,6 @@ useradd -m -G sys,log,network,floppy,scanner,power,rfkill,users,video,storage,op
 echo oyinbra:password | chpasswd
 
 # Change password to your password
-usermod -aG wheel oyinbra
-
-# replace username with your own network
-echo "oyinbra ALL=(ALL) ALL" >> /etc/sudoers.d/oyinbra
+usermod -aG wheel,storage,power oyinbra
 
 printf "\e[1;32mDone! grub configuration, Type exit, umount -a and reboot.\e[0m"

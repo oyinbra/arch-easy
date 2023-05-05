@@ -11,16 +11,17 @@ reflector --country US --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
 
 # paru installation
 cd
-mkdir -p Repos
-~/Repos
+mkdir -p Tmp 
+~/Tmp  
 sudo pacman -S --needed base-devel
 git clone https://aur.archlinux.org/paru.git
-cd paru
-makepkg -si
-
-sudo pacman -Syyu
-paru -S xorg plasma plasma-desktop plasma-wayland-session sddm ark kate dolphin konsole 
-
+cd paru 
+makepkg -si 
+  
+sudo pacman -Syyu 
+paru -S xorg xorg-xinit xterm plasma plasma-desktop plasma-wayland-session sddm ark kate dolphin konsole 
+touch ~/.xinitrc
+echo "exec startkde" >> ~/.xinitrc
 sudo systemctl enable sddm
 /bin/echo -e "\e[1;32mREBOOTING IN 5..4..3..2..1..\e[0m"
 sleep 5
