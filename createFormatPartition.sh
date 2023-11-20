@@ -64,7 +64,6 @@ fi
 # Create EFI System Partition
 # -----------------------------------------
 sgdisk -n 1:0:+$efi_size -t 1:$efi_type -c 1:"EFI System" -u 1 $device
-swap_size="32768M"
 
 # -----------------------------------------
 # Create Swap Partition
