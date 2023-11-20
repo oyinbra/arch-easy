@@ -22,8 +22,8 @@ clear
 # ------------------------------------------------------
 # Source the installation scripts with confirmation
 # ------------------------------------------------------
-confirm_execution source ./setBaseUEFI.sh
 confirm_execution source ./basePackages.sh
+confirm_execution source ./setBaseUEFI.sh
 confirm_execution source ./kde.sh
 
 # -----------------------------------------

@@ -110,7 +110,6 @@ systemctl enable upower.service
 systemctl enable sshd
 systemctl enable avahi-daemon
 systemctl enable fstrim.timer
-systemctl enable dhcpcd.service 
 systemctl enable systemd-hibernate.service
 
 # -----------------------------------------
@@ -129,4 +128,5 @@ cat << "EOF"
 
 EOF
 
-echo "NEXT: kde.sh or No to end and install your own choice of Desktop"
+echo "NEXT: setBaseUEFI.sh"
+
