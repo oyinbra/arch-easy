@@ -13,6 +13,48 @@ cat << "EOF"
 
 EOF
 
+# ------------------------------------------------------
+# Load library from modules directory
+# ------------------------------------------------------
+source $(dirname "$0")/modules/library.sh
+clear
+
+cat << "EOF"
+
+ ██                    ██              ██  ██
+░██                   ░██             ░██ ░██
+░██ ███████   ██████ ██████  ██████   ░██ ░██
+░██░░██░░░██ ██░░░░ ░░░██░  ░░░░░░██  ░██ ░██
+░██ ░██  ░██░░█████   ░██    ███████  ░██ ░██
+░██ ░██  ░██ ░░░░░██  ░██   ██░░░░██  ░██ ░██
+░██ ███  ░██ ██████   ░░██ ░░████████ ███ ███
+░░ ░░░   ░░ ░░░░░░     ░░   ░░░░░░░░ ░░░ ░░░
+
+EOF
+
+# ------------------------------------------------------
+# Call function to Confirm Start
+# ------------------------------------------------------
+confirm_start
+
+# ------------------------------------------------------
+# Install required packages
+# ------------------------------------------------------
+echo ""
+echo "-> Install main packages"
+
+# Install the rest of base packages
+packagesPacman=(
+    "grub"
+    "efibootmgr"
+    "zsh"
+)
+
+# -----------------------------------------
+# Install pacman packages
+# -----------------------------------------
+_installPackagesPacman "${packagesPacman[@]}";
+
 # -----------------------------------------
 # Set the timezone to Africa/Lagos
 # -----------------------------------------
@@ -119,6 +161,11 @@ done
 usermod -aG wheel,storage,power "$username"
 
 # -----------------------------------------
+# Add the new user to sudoers list
+# -----------------------------------------
+echo "$username ALL=(ALL) ALL" | sudo tee -a /etc/sudoers.d/10-$username > /dev/null
+
+# -----------------------------------------
 # Done
 # -----------------------------------------
 cat << "EOF"
@@ -134,4 +181,4 @@ cat << "EOF"
 
 EOF
 
-echo "NEXT: basePackages.sh"
+echo "NEXT: kde.sh or No to end and install your own choice of Desktop"
