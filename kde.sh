@@ -1,28 +1,74 @@
 #!/bin/bash
 
-sudo timedatectl set-ntp true
-sudo hwclock --systohc
+cat << "EOF"
 
-reflector --country US --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
+ ██   ██ ███████   ████████   ██                    ██              ██  ██
+░██  ██ ░██░░░░██ ░██░░░░░   ░██                   ░██             ░██ ░██
+░██ ██  ░██    ░██░██        ░██ ███████   ██████ ██████  ██████   ░██ ░██
+░████   ░██    ░██░███████   ░██░░██░░░██ ██░░░░ ░░░██░  ░░░░░░██  ░██ ░██
+░██░██  ░██    ░██░██░░░░    ░██ ░██  ░██░░█████   ░██    ███████  ░██ ░██
+░██░░██ ░██    ██ ░██        ░██ ░██  ░██ ░░░░░██  ░██   ██░░░░██  ░██ ░██
+░██ ░░██░███████  ░████████  ░██ ███  ░██ ██████   ░░██ ░░████████ ███ ███
+░░   ░░ ░░░░░░░   ░░░░░░░░   ░░ ░░░   ░░ ░░░░░░     ░░   ░░░░░░░░ ░░░ ░░░
 
-# sudo firewall-cmd --add-port=1025-65535/tcp --permanent
-# sudo firewall-cmd --add-port=1025-65535/udp --permanent
-# sudo firewall-cmd --reload
+EOF
 
-# paru installation
-cd
-mkdir -p Tmp 
-~/Tmp  
-sudo pacman -S --needed base-devel
-git clone https://aur.archlinux.org/paru.git
-cd paru 
-makepkg -si 
-  
-sudo pacman -Syyu 
-paru -S xorg xorg-xinit xterm plasma plasma-desktop plasma-wayland-session sddm ark kate dolphin konsole 
-touch ~/.xinitrc
-echo "exec startkde" >> ~/.xinitrc
+# -----------------------------------------
+# Source the installation script for Yay
+# -----------------------------------------
+source $(dirname "$0")/yay.sh
+
+# -----------------------------------------
+# Update the system
+# -----------------------------------------
+sudo pacman -Syu
+
+# ------------------------------------------------------
+# Load library from modules directory
+# ------------------------------------------------------
+source $(dirname "$0")/modules/library.sh
+clear
+
+# -----------------------------------------
+# Install KDE Plasma and related packages
+# -----------------------------------------
+packagesYay=(
+    "plasma-desktop"
+    "plasma-wayland-session"
+    "xorg"
+    "xorg-xinit"
+    "xterm"
+    "plasma"
+    "sddm"
+    "ark"
+    "kate"
+    "dolphin"
+    "konsole"
+)
+
+# -----------------------------------------
+# Install Yay packages
+# -----------------------------------------
+_installPackagesYay "${packagesYay[@]}";
+
+# -----------------------------------------
+# Enable SDDM (Simple Desktop Display Manager)
+# -----------------------------------------
 sudo systemctl enable sddm
-/bin/echo -e "\e[1;32mREBOOTING IN 5..4..3..2..1..\e[0m"
-sleep 5
-reboot
+
+# -----------------------------------------
+# Done
+# -----------------------------------------
+cat << "EOF"
+
+ ███████
+░██░░░░██
+░██    ░██  ██████  ███████   █████
+░██    ░██ ██░░░░██░░██░░░██ ██░░░██
+░██    ░██░██   ░██ ░██  ░██░███████
+░██    ██ ░██   ░██ ░██  ░██░██░░░░
+░███████  ░░██████  ███  ░██░░██████
+░░░░░░░    ░░░░░░  ░░░   ░░  ░░░░░░
+
+EOF
+
