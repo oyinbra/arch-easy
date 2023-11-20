@@ -80,6 +80,15 @@ pacman -Sy
 sudo sed -i '38iParallelDownloads = 5' /etc/pacman.conf
 cat /etc/pacman.conf | grep ParallelDownload
 
+# --------------------------------------------------------
+# Enable color, parallel downloads and multilib
+# --------------------------------------------------------
+# Remove comments from lines 33, 37, 90, and 91 in /etc/pacman.conf
+# --------------------------------------------------------
+sed -i -e '33s/^#//' -e '37s/^#//' -e '90s/^#//' -e '91s/^#//' /etc/pacman.conf
+# Confirm those changes
+sed -n -e '33p' -e '37p' -e '90p' -e '91p' /etc/pacman.conf
+
 # -----------------------------------------
 # Done
 # -----------------------------------------
