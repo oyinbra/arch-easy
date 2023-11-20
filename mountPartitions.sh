@@ -15,9 +15,13 @@ cat << "EOF"
 EOF
 
 # -----------------------------------------
-# Set the device name variable
+# Auto-detect device type
 # -----------------------------------------
-device="/dev/nvme0n1"
+if [[ -e "/sys/block/nvme0n1" ]]; then
+    device="/dev/nvme0n1p"
+else
+    device="/dev/sda"
+fi
 
 # -----------------------------------------
 # Check if any partitions are mounted
@@ -35,14 +39,14 @@ set -e
 # -----------------------------------------
 # Use UUIDs for mounting partitions
 # -----------------------------------------
-root_uuid=$(blkid -s UUID -o value ${device}p3)
-boot_uuid=$(blkid -s UUID -o value ${device}p1)
-swap_uuid=$(blkid -s UUID -o value ${device}p2)
+root_uuid=$(blkid -s UUID -o value ${device}3)
+boot_uuid=$(blkid -s UUID -o value ${device}1)
+swap_uuid=$(blkid -s UUID -o value ${device}2)
 
 # -----------------------------------------
 # Mount root partition before creating subvolumes 
 # -----------------------------------------
-mount ${device}p3 /mnt
+mount ${device}3 /mnt
 
 # -----------------------------------------
 # Create subvolumes for root partition
@@ -78,19 +82,17 @@ mount -o defaults,discard=async,ssd,subvol=@log,noatime UUID=$root_uuid /mnt/var
 # -----------------------------------------
 # Mount EFI partition
 # -----------------------------------------
-mount ${device}p1 /mnt/boot/efi
+mount ${device}1 /mnt/boot/efi
 
 # -----------------------------------------
 # Activate swap
 # -----------------------------------------
-swapon ${device}p2
+swapon ${device}2
 
 # -----------------------------------------
 # Copy files using rsync
 # -----------------------------------------
 rsync -av /root/arch-easy/ /mnt/
-
-echo "Format and Mounting completed successfully"
 
 # -----------------------------------------
 # Done
