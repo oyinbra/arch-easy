@@ -71,3 +71,4 @@ cat << "EOF"
 
 EOF
 
+echo "NEXT: setBaseUEFI.sh"

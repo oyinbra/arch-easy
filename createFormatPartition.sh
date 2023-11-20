@@ -112,3 +112,4 @@ cat << "EOF"
 
 EOF
 
+echo "NEXT: mountPartiton.sh"

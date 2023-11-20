@@ -129,3 +129,4 @@ cat << "EOF"
 
 EOF
 
+echo "NEXT: kde.sh or No to end and install your own choice of Desktop"

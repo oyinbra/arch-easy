@@ -93,6 +93,7 @@ swapon ${device}2
 # Copy files using rsync
 # -----------------------------------------
 rsync -av /root/arch-easy/ /mnt/
+lsblk
 
 # -----------------------------------------
 # Done
@@ -110,3 +111,4 @@ cat << "EOF"
 
 EOF
 
+echo "NEXT: pacstrap.sh"

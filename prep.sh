@@ -39,16 +39,16 @@ timedatectl set-ntp true
 # Function to prompt and set keyboard layout
 # --------------------------------------------------------
 set_keyboard_layout() {
-    read -p "Choose your keyboard layout (default: us-altgr-intl, other options: us, de, fr): " layout
-    layout=${layout:-us-altgr-intl}
+    read -p "Choose your keyboard layout (default: us, other options: de, fr): " layout
+    layout=${layout:us}
 
     case $layout in
-        us|de|fr|us-altgr-intl)
+        de|fr|us)
             loadkeys "$layout"
             ;;
         *)
-            echo "Invalid option. Setting default layout (us-altgr-intl)."
-            loadkeys us-altgr-intl
+            echo "Invalid option. Setting default layout (us)."
+            loadkeys us
             ;;
     esac
 }
@@ -61,18 +61,7 @@ set_keyboard_layout
 # --------------------------------------------------------
 # Install reflector and the Arch Linux keyring
 # --------------------------------------------------------
-pacman -S reflector archlinux-keyring
-
-# --------------------------------------------------------
-# Use reflector to generate an optimized mirrorlist for the US
-# Adjust options as needed for your location or preferences
-# --------------------------------------------------------
-reflector --country US --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
-
-# --------------------------------------------------------
-# Update the package repositories with the new mirrorlist
-# --------------------------------------------------------
-pacman -Sy
+pacman -S archlinux-keyring
 
 # --------------------------------------------------------
 # Enable color, parallel downloads and multilib
@@ -99,3 +88,4 @@ cat << "EOF"
 
 EOF
 
+echo "NEXT: creatFormatPartition.sh"

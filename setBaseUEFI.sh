@@ -134,3 +134,4 @@ cat << "EOF"
 
 EOF
 
+echo "NEXT: basePackages.sh"
