@@ -75,12 +75,6 @@ reflector --country US --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Sy
 
 # --------------------------------------------------------
-# Set Parallel downloads to 5 in line 38 
-# --------------------------------------------------------
-sudo sed -i '38iParallelDownloads = 5' /etc/pacman.conf
-cat /etc/pacman.conf | grep ParallelDownload
-
-# --------------------------------------------------------
 # Enable color, parallel downloads and multilib
 # --------------------------------------------------------
 # Remove comments from lines 33, 37, 90, and 91 in /etc/pacman.conf
