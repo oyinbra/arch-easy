@@ -38,22 +38,40 @@ EOF
 confirm_start
 
 # ------------------------------------------------------
-# Install required packages
+# Install required packages if not installed
 # ------------------------------------------------------
 echo ""
-echo "-> Install main packages"
+echo "-> Install required packages"
 
-# Install the rest of base packages
 packagesPacman=(
     "grub"
     "efibootmgr"
     "zsh"
+    "networkmanager"
+    "network-manager-applet"
+    "sudo"
+    "openssh"
+    "iw"
+    "terminus-font"
+    "iwd"
+    "sudo"
+    "rsync"
+    "blueman"
 )
 
 # -----------------------------------------
 # Install pacman packages
 # -----------------------------------------
 _installPackagesPacman "${packagesPacman[@]}";
+
+# -----------------------------------------
+# Enable essential services
+# -----------------------------------------
+systemctl enable bluetooth
+systemctl enable NetworkManager
+systemctl enable sshd
+systemctl enable fstrim.timer
+systemctl enable systemd-hibernate.service
 
 # -----------------------------------------
 # Set the timezone to Africa/Lagos

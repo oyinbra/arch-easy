@@ -64,13 +64,13 @@ set_keyboard_layout
 pacman -S archlinux-keyring
 
 # --------------------------------------------------------
-# Enable color, parallel downloads and multilib
+# Enable color, verbosepkglists, parallel downloads and multilib
 # --------------------------------------------------------
-# Remove comments from lines 33, 37, 90, and 91 in /etc/pacman.conf
+# Remove comments from lines 33, 36, 37, 90, and 91 in /etc/pacman.conf
 # --------------------------------------------------------
-sed -i -e '33s/^#//' -e '37s/^#//' -e '90s/^#//' -e '91s/^#//' /etc/pacman.conf
+sed -i -e '33s/^#//' -e '36s/^#//' -e '37s/^#//' -e '90s/^#//' -e '91s/^#//' /etc/pacman.conf
 # Confirm those changes
-sed -n -e '33p' -e '37p' -e '90p' -e '91p' /etc/pacman.conf
+sed -n -e '33p' -e '36p' -e '37p' -e '90p' -e '91p' /etc/pacman.conf
 
 # --------------------------------------------------------
 # Update the package repositories
