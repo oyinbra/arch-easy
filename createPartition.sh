@@ -25,7 +25,7 @@ fi
 # Auto-detect device type
 # -----------------------------------------
 if [[ -e "/sys/block/nvme0n1" ]]; then
-    device="/dev/nvme0n1p"
+    device="/dev/nvme0n1"
 else
     device="/dev/sda"
 fi
@@ -34,10 +34,10 @@ fi
 # Partition sizes (uncomment as needed for swap partiton)
 # -----------------------------------------
 efi_size="512M"
+# swap_size="8192M" # 8GB swap_size
+# swap_size="16384M" # 16G swap_size
 swap_size="32768M" # 32G swap_size
 # swap_size="65536M" # 64G swap_size
-# swap_size="16384M" # 16G swap_size
-# swap_size="8192M" # 8GB swap_size
 
 # -----------------------------------------
 # Partition types
@@ -80,25 +80,6 @@ sgdisk -n 3:0:0 -t 3:$root_type -c 3:"Root" -u 3 $device
 # -----------------------------------------
 gdisk -l $device
 
-# -----------------------------------------
-# Format Root Partition (using btrfs)
-# -----------------------------------------
-mkfs.btrfs -f -L ArchLinux ${device}3
-
-# -----------------------------------------
-# Format EFI System Partition
-# -----------------------------------------
-mkfs.vfat -n BOOT ${device}1
-
-# -----------------------------------------
-# Format Swap Partition
-# -----------------------------------------
-mkswap -L SWAP ${device}2
-lsblk
-
-# -----------------------------------------
-# Done
-# -----------------------------------------
 cat << "EOF"
 
  ███████
@@ -112,4 +93,4 @@ cat << "EOF"
 
 EOF
 
-echo "NEXT: mountPartiton.sh"
+echo "NEXT: formatPartiton.sh"
