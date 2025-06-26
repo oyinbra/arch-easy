@@ -4,6 +4,8 @@ set -e
 read -rp "Enter new username: " USERNAME
 read -rsp "Enter password for $USERNAME: " USERPASS
 echo
+read -rsp "Enter password for root: " ROOTPASS
+echo
 
 EFI=/dev/nvme0n1p1
 SWAP=/dev/nvme0n1p2
@@ -33,10 +35,11 @@ mount -o noatime,compress=zstd,subvol=@cache     $ROOT /mnt/var/cache
 mount -o noatime,compress=zstd,subvol=@snapshots $ROOT /mnt/.snapshots
 mount $EFI /mnt/boot
 
-echo "[+] Running pacstrap (with retry on failure)"
+echo "[+] Running pacstrap (with retry)"
 until pacstrap /mnt base linux linux-firmware btrfs-progs \
     plasma-desktop konsole dolphin sddm xorg xdg-utils xdg-user-dirs \
-    networkmanager sudo efibootmgr; do
+    networkmanager sudo efibootmgr bluez bluez-utils bluedevil \
+    timeshift grub-btrfs timeshift-autosnap plasma-nm gnupg; do
     echo "[!] pacstrap failed. Retrying in 5 seconds..."
     sleep 5
 done
@@ -44,7 +47,11 @@ done
 echo "[+] Generating fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
 
-echo "[+] Entering chroot"
+echo "[+] Fetching UUIDs"
+ROOT_UUID=$(blkid -s UUID -o value $ROOT)
+SWAP_UUID=$(blkid -s UUID -o value $SWAP)
+
+echo "[+] Entering chroot for setup"
 arch-chroot /mnt /bin/bash <<EOF
 set -e
 
@@ -63,13 +70,9 @@ cat > /etc/hosts <<HOSTS
 127.0.1.1 arch-kde.localdomain arch-kde
 HOSTS
 
-# Initramfs config
+# Initramfs
 sed -i 's/^HOOKS=(.*/HOOKS=(base udev autodetect modconf block filesystems keyboard resume fsck)/' /etc/mkinitcpio.conf
 mkinitcpio -P
-
-# UUIDs for boot config
-ROOT_UUID=$(blkid -s UUID -o value $ROOT)
-SWAP_UUID=$(blkid -s UUID -o value $SWAP)
 
 bootctl --path=/boot install
 
@@ -90,18 +93,16 @@ ENTRY
 echo "[+] Creating user: $USERNAME"
 useradd -mG wheel -s /bin/bash "$USERNAME"
 echo "$USERNAME:$USERPASS" | chpasswd
+echo "root:$ROOTPASS" | chpasswd
 
-echo "[+] Configuring sudo"
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 echo "[+] Enabling services"
 systemctl enable NetworkManager
 systemctl enable sddm
-
-echo "[+] Set root password"
-passwd
+systemctl enable bluetooth
 EOF
 
-echo "[+] Unmounting and rebooting"
+echo "[+] Cleanup and reboot"
 umount -R /mnt
 reboot
