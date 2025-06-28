@@ -83,7 +83,7 @@ essentialPkgs=(
   efibootmgr
   grub-btrfs
   timeshift
-  timeshift-autosnap
+  os-prober
 
   # === NETWORK & BLUETOOTH ===
   networkmanager
