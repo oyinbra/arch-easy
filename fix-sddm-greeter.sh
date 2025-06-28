@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-echo "[*] Installing SDDM greeter + required Qt6 modules..."
+echo "[*] Installing SDDM greeter + required Qt5 modules..."
 sudo pacman -Syu --needed --noconfirm \
     sddm \
-    qt6-graphicaleffects \
-    qt6-quickcontrols2 \
+    qt5-graphicaleffects \
+    qt5-quickcontrols2 \
     plasma-workspace
 
 echo "[*] Creating SDDM config directory..."
@@ -21,4 +21,4 @@ echo "[*] Enabling and restarting SDDM service..."
 sudo systemctl enable sddm.service
 sudo systemctl restart sddm.service
 
-echo "[✓] SDDM greeter fix applied. Reboot if display does not appear automatically."
+echo "[✓] SDDM greeter fix (Qt5) applied. Reboot if display does not appear automatically."
