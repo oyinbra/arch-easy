@@ -102,6 +102,7 @@ essentialPkgs=(
   sddm
   konsole
   dolphin
+  kdeconnect
 
   # === SYSTEM SERVICES ===
   firewalld
